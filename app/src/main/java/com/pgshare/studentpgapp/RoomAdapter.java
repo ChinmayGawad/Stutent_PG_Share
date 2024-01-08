@@ -1,45 +1,43 @@
-package com.pgshare.studentpgapp;
-
+package com.pgshare.studentpgapp;// RoomAdapter.java
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
 
     private List<Room> roomList;
+    private Context context;
 
-    public RoomAdapter(List<Room> roomList) {
+    public RoomAdapter(Context context, List<Room> roomList) {
+        this.context = context;
         this.roomList = roomList;
     }
 
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.roomlist, parent, false);
-        return new RoomViewHolder(itemView);
+        View view = LayoutInflater.from(context).inflate(R.layout.roomlist, parent, false);
+        return new RoomViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
 
-
-        Glide.with(holder.itemView.getContext())
-                .load(room.getImageResourceId())
-                .placeholder(R.drawable.default_room_image)  // Placeholder image while loading
-                .into((ImageView) holder.roomImageView);
-        holder.roomNameTextView.setText(room.getRoomName());
-        holder.locationTextView.setText(room.getLocation());
-        holder.priceTextView.setText(String.valueOf(room.getPrice()));
+        // Bind data to the views
+        holder.textViewRoomName.setText(room.getRoomName());
+        holder.textViewLocation.setText(room.getLocation());
+        holder.textViewDescription.setText(room.getDescription());
+        holder.textViewPrice.setText(String.format("$ %.2f", room.getPrice()));
     }
 
     @Override
@@ -47,18 +45,18 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         return roomList.size();
     }
 
-    static class RoomViewHolder extends RecyclerView.ViewHolder {
-        public Object roomImageView;
-        TextView roomNameTextView;
-        TextView locationTextView;
-        TextView priceTextView;
+    public static class RoomViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewRoomName;
+        TextView textViewLocation;
+        TextView textViewDescription;
+        TextView textViewPrice;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            roomImageView= itemView.findViewById(R.id.roomImageView);
-            roomNameTextView = itemView.findViewById(R.id.roomNameTextView);
-            locationTextView = itemView.findViewById(R.id.locationTextView);
-            priceTextView = itemView.findViewById(R.id.priceTextView);
+            textViewRoomName = itemView.findViewById(R.id.textViewRoomName);
+            textViewLocation = itemView.findViewById(R.id.textViewLocation);
+            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            textViewPrice = itemView.findViewById(R.id.textViewPrice);
         }
     }
 }
