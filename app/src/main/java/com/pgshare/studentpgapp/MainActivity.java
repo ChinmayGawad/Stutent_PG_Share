@@ -13,18 +13,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void Rent(View view) {
-        Intent intent=new Intent(MainActivity.this, home_page.class);
-        startActivity(intent);
-    }
     public void Pg(View view) {
-        Intent intent=new Intent(MainActivity.this, Login.class);
+        Intent intent=new Intent(MainActivity.this, Add_Room.class);
         startActivity(intent);
     }
-
 
     public void Owner(View view) {
         Intent intent=new Intent(MainActivity.this, Login.class);
         startActivity(intent);
     }
+
+    public void Rent(View view) {
+        Intent intent=new Intent(MainActivity.this, home_page.class);
+        startActivity(intent);
+    }
+
+
+
+
 }
